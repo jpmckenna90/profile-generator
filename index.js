@@ -1,5 +1,6 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
+const axios = require("axios");
 
 inquirer
   .prompt([
@@ -19,6 +20,12 @@ inquirer
       name: "color"
     }
   ])
-  .then(function(response) {
-    console.log(response);
+  .then(function({ username }) {
+    const queryUrl = `https://api.github.com/users/${username}`
+    axios.get(queryUrl).then(function(res){
+      console.log(res.data)
+    })
   });
+// .then(function(response) {
+//   console.log(response);
+// });
