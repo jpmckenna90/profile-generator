@@ -2,6 +2,9 @@ const fs = require("fs");
 const inquirer = require("inquirer");
 const axios = require("axios");
 
+
+// import writeHtml from "./writehtml.js";
+
 // constructor
 function User(
   name,
@@ -24,7 +27,7 @@ function User(
     (this.followers = followers);
 }
 
-writeHtml = user => {
+const writeHtml = user => {
   return `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,10 +51,62 @@ writeHtml = user => {
           </h1>
         </div>
       </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <h2 class="mx-auto">
+            Github Username: ${user.username}
+          </h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <h2 class="mx-auto">
+            <img src="${user.imgURL}">
+          </h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3 class="mx-auto">
+              ${user.bio}
+            </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 text-center">
+          <div class="card">
+            <h3 class="mx-auto">
+              Public Repos: ${user.repos}
+            </h3>
+          </div>
+        </div>
+        <div class="col-6 text-center">
+          <div class="card">
+            <h3 class="mx-auto">
+              Starred Repos: ${user.stared}
+            </h3>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 text-center">
+          <div class="card">
+            <h3 class="mx-auto">
+              Followers: ${user.followers}
+            </h3>
+          </div>
+        </div>
+        <div class="col-6 text-center">
+          <div class="card">
+            <h3 class="mx-auto">
+              Following: ${user.following}
+            </h3>
+          </div>
     </div>
   </body>
 </html>`;
 };
+
 
 inquirer
   .prompt([
@@ -74,6 +129,7 @@ inquirer
   .then(function({ username }) {
     const queryUrl = `https://api.github.com/users/${username}`;
     const starredUrl = `https://api.github.com/users/${username}/starred`;
+    
     axios.get(queryUrl).then(function(res) {
       // Gather all data from axios response to pass into constructor
       const name = res.data.name;
@@ -84,9 +140,12 @@ inquirer
       const repos = res.data.public_repos;
       const followers = res.data.followers;
       const following = res.data.following;
-      // // ! DON'T FORGET TO DO STARS - doesn't appear to be in res.data
+    
 
-      // // Create new user with constructor
+
+      // ! DON'T FORGET TO DO STARS - doesn't appear to be in res.data
+
+      // Create new user with constructor
       const user = new User(
         name,
         username,
@@ -97,7 +156,8 @@ inquirer
         followers,
         following
       );
-      console.log(user);
+
+      // Generate HTMl and write .html file
       const myFile = writeHtml(user);
       fs.writeFile("user.html", myFile, function(err) {
         if (err) {
@@ -105,11 +165,7 @@ inquirer
         }
       });
     });
-
     // axios.get(starredUrl).then(function(res){
     //   const starred = res.data.length;
     // })
   });
-// .then(function(response) {
-//   console.log(response);
-// });

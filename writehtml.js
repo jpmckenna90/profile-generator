@@ -1,6 +1,5 @@
-import User from "index.js";
-
-export const html = `<!DOCTYPE html>
+writeHtml = user => {
+  return `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -19,13 +18,51 @@ export const html = `<!DOCTYPE html>
       <div class="row">
         <div class="col-12 text-center">
           <h1 class="mx-auto">
-            ${User.name}
+            ${user.name}
           </h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <h2 class="mx-auto">
+            Github Username: ${user.username}
+          </h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <h2 class="mx-auto">
+            <img src="${user.imgURL}">
+          </h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3 class="mx-auto">
+              ${user.bio}
+            </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3 class="mx-auto">
+            Public Repos: ${user.repos}
+          </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 text-center">
+          <h3 class="mx-auto">
+            Followers: ${user.followers}
+          </h3>
+        </div>
+        <div class="col-6 text-center">
+          <h3 class="mx-auto">
+            Following: ${user.following}
+          </h3>
         </div>
       </div>
     </div>
   </body>
-</html>
-`;
-
-console.log(html);
+</html>`;
+};

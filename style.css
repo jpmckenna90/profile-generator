@@ -1,0 +1,23 @@
+.card{
+  background-color: green;
+  color: white;
+  margin: 2%;
+}
+
+#biopic{
+  border-radius: 50%;
+  border: solid 4px yellow;
+  box-shadow: black 5px 5px 5px;
+}
+
+#top{
+  background-color: lightsteelblue;
+  width: 100%;
+  margin-bottom: 3%;
+  padding: 2%;
+}
+
+.jumbotron{
+  padding: 5%;
+  
+}
