@@ -3,18 +3,55 @@ const inquirer = require("inquirer");
 const axios = require("axios");
 
 // constructor
-function User(name, username, imgURL, bio, location, repos, following, followers){ //// ! DON'T FORGET TO DO STARS - doesn't appear to be in res.data 
-  this.name = name,
-  this.username = username,
-  this.imgURL = imgURL,
-  this.bio = bio,
-  this.location = location,
-  this.repos = repos,
-  this.following = following,
-  this.followers = followers
-  // this.stars = stars
+function User(
+  name,
+  username,
+  imgURL,
+  bio,
+  location,
+  repos,
+  following,
+  followers
+) {
+  //// ! DON'T FORGET TO DO STARS - doesn't appear to be in res.data
+  (this.name = name),
+    (this.username = username),
+    (this.imgURL = imgURL),
+    (this.bio = bio),
+    (this.location = location),
+    (this.repos = repos),
+    (this.following = following),
+    (this.followers = followers);
 }
 
+writeHtml = user => {
+  return `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Profile Generator</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h1 class="mx-auto">
+            ${user.name}
+          </h1>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>`;
+};
 
 inquirer
   .prompt([
@@ -35,9 +72,9 @@ inquirer
     }
   ])
   .then(function({ username }) {
-    const queryUrl = `https://api.github.com/users/${username}`
-    axios.get(queryUrl).then(function(res){
-
+    const queryUrl = `https://api.github.com/users/${username}`;
+    const starredUrl = `https://api.github.com/users/${username}/starred`;
+    axios.get(queryUrl).then(function(res) {
       // Gather all data from axios response to pass into constructor
       const name = res.data.name;
       const username = res.data.login;
@@ -47,13 +84,31 @@ inquirer
       const repos = res.data.public_repos;
       const followers = res.data.followers;
       const following = res.data.following;
-      // ! DON'T FORGET TO DO STARS - doesn't appear to be in res.data 
+      // // ! DON'T FORGET TO DO STARS - doesn't appear to be in res.data
 
-      // Create new user with constructor 
-      const user = new User(name, username, imgURL, bio, location, repos, followers, following);
+      // // Create new user with constructor
+      const user = new User(
+        name,
+        username,
+        imgURL,
+        bio,
+        location,
+        repos,
+        followers,
+        following
+      );
       console.log(user);
+      const myFile = writeHtml(user);
+      fs.writeFile("user.html", myFile, function(err) {
+        if (err) {
+          console.log(err);
+        }
+      });
+    });
 
-    })
+    // axios.get(starredUrl).then(function(res){
+    //   const starred = res.data.length;
+    // })
   });
 // .then(function(response) {
 //   console.log(response);
