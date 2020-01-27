@@ -19,5 +19,9 @@
 
 .jumbotron{
   padding: 5%;
-  
+}
+
+#imgrow{
+  position:relative;
+  top:5vw;
 }
