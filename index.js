@@ -26,6 +26,7 @@ function User(
   repos,
   following,
   followers,
+  starred,
   color
 ) {
   (this.name = name),
@@ -36,11 +37,12 @@ function User(
     (this.repos = repos),
     (this.following = following),
     (this.followers = followers);
+    (this.starred = starred);
     (this.color = color);
 }
 
 inquirer.prompt(questions).then(function({ username, color }) {
-  
+  console.log(username, color);
   const queryUrl = `https://api.github.com/users/${username}`;
   const starredUrl = `https://api.github.com/users/${username}/starred`;
   
