@@ -3,7 +3,7 @@ const colors = {
     wrapperBackground: "#E6E1C3",
     headerBackground: "#C1C72C",
     headerColor: "black",
-    photoBorderColor: "#black"
+    photoBorderColor: "black"
   },
   blue: {
     wrapperBackground: "#5F64D3",
@@ -121,8 +121,8 @@ const writeHtml = user => {
               </div>
               <div class="row">
                 <div class="col-6 text-center"><a href="https://www.google.com/maps?q=${user.location}"><i class="fas fa-location-arrow"></i>${user.location}</a></div>
-                <div class="col-3 text-right"><a href="https://www.github.com/${user.username}"><i class="fab fa-github-alt"></i></div>
-                <div class="col-3 text-center"><a href="${user.blog}"><i class="fas fa-globe"></i></div>
+                <div class="col-3 text-right"><a href="https://www.github.com/${user.username}"><i class="fab fa-github-alt"></i></a></div>
+                <div class="col-3 text-center"><a href="${user.blog}"><i class="fas fa-globe"></i></a></div>
               </div>
             </div>
           </div>
@@ -157,6 +157,7 @@ const writeHtml = user => {
                 Following: ${user.following}
               </h3>
             </div>
+      </div>
       </div>
     </body>
   </html>`;
