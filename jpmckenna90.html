@@ -1,32 +1,4 @@
-const colors = {
-  green: {
-    wrapperBackground: "#E6E1C3",
-    headerBackground: "#C1C72C",
-    headerColor: "black",
-    photoBorderColor: "#black"
-  },
-  blue: {
-    wrapperBackground: "#5F64D3",
-    headerBackground: "#26175A",
-    headerColor: "white",
-    photoBorderColor: "#73448C"
-  },
-  pink: {
-    wrapperBackground: "#879CDF",
-    headerBackground: "#FF8374",
-    headerColor: "white",
-    photoBorderColor: "#FEE24C"
-  },
-  red: {
-    wrapperBackground: "#DE9967",
-    headerBackground: "#870603",
-    headerColor: "white",
-    photoBorderColor: "white"
-  }
-};
-
-const writeHtml = user => {
-  return `<!DOCTYPE html>
+<!DOCTYPE html>
   <html lang="en">
     <head>
       <meta charset="UTF-8" />
@@ -44,8 +16,8 @@ const writeHtml = user => {
       <style>
 
       .card{
-        background-color: ${colors[user.color].headerBackground};
-        color: ${colors[user.color].headerColor};
+        background-color: #C1C72C;
+        color: black;
         margin: 2%;
       }
       
@@ -55,7 +27,7 @@ const writeHtml = user => {
         border-radius: 50%;
         object-fit: cover;
         margin-top: -75px;
-        border: 6px solid ${colors[user.color].photoBorderColor};
+        border: 6px solid #black;
         box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
       }
       
@@ -65,10 +37,6 @@ const writeHtml = user => {
         margin-bottom: 3%;
         padding: 2%;
       }
-
-      a{
-        font-size: 1.2vw;
-      }
       
       .jumbotron{
         padding: 5%;
@@ -77,8 +45,8 @@ const writeHtml = user => {
       #imgrow{
         position:relative;
         top:5vw;
-        background-color: ${colors[user.color].headerBackground};
-        color: ${colors[user.color].headerColor};
+        background-color: #C1C72C;
+        color: black;
       }
       
         
@@ -96,34 +64,29 @@ const writeHtml = user => {
               <div class="row">
                 <div class="col-12 text-center">
                   <h1 class="mx-auto">
-                    ${user.name}
+                    James McKenna
                   </h1>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12 text-center">
                   <h2 class="mx-auto">
-                    Github Username: <a href="https://www.github.com/${user.username}">${user.username}</a>
+                    Github Username: jpmckenna90
                   </h2>
                 </div>
               </div>
               <div class="row">
               <div class="col-12 text-center">
                   <h3 class="mx-auto">
-                    ${user.bio}
+                    Philly-based phull-stack developer.
                   </h3>
               </div>
             </div>
               <div class="row" id="imgrow">
                 <div class="col-12 text-center photo-header">
-                    <img src="${user.imgURL}" alt="Profile Picture" id="biopic">
+                    <img src="https://avatars3.githubusercontent.com/u/27628608?v=4" alt="Profile Picture" id="biopic">
                 </div>
               </div>
-              <div class="row">
-                <div class="col-6 text-center"><a href="https://www.google.com/maps?q=${user.location}"><i class="fas fa-location-arrow"></i>${user.location}</a></div>
-                <div class="col-3 text-right"><a href="https://www.github.com/${user.username}"><i class="fab fa-github-alt"></i></div>
-                <div class="col-3 text-center"><a href="${user.blog}"><i class="fas fa-globe"></i></div>
-              </div>
             </div>
           </div>
         </div>
@@ -131,14 +94,14 @@ const writeHtml = user => {
           <div class="col-6 text-center">
             <div class="card">
               <h3 class="mx-auto">
-                Public Repos: ${user.repos}
+                Public Repos: 14
               </h3>
             </div>
           </div>
           <div class="col-6 text-center">
             <div class="card">
               <h3 class="mx-auto">
-                Starred Repos: ${user.starred}
+                Starred Repos: 1
               </h3>
             </div>
           </div>
@@ -147,19 +110,16 @@ const writeHtml = user => {
           <div class="col-6 text-center">
             <div class="card">
               <h3 class="mx-auto">
-                Followers: ${user.followers}
+                Followers: 17
               </h3>
             </div>
           </div>
           <div class="col-6 text-center">
             <div class="card">
               <h3 class="mx-auto">
-                Following: ${user.following}
+                Following: 17
               </h3>
             </div>
       </div>
     </body>
-  </html>`;
-};
-
-exports.writeHtml = writeHtml;
+  </html>

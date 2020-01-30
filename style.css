@@ -1,13 +1,17 @@
 .card{
-  background-color: green;
-  color: white;
+  background-color: ${colors[user.color].headerBackground};
+  color: ${colors[user.color].headerColor};
   margin: 2%;
 }
 
 #biopic{
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
-  border: solid 4px yellow;
-  box-shadow: black 5px 5px 5px;
+  object-fit: cover;
+  margin-top: -75px;
+  border: 6px solid ${colors[user.color].photoBorderColor};
+  box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
 }
 
 #top{
@@ -24,4 +28,28 @@
 #imgrow{
   position:relative;
   top:5vw;
+  background-color: ${colors[user.color].headerBackground};
+  color: ${colors[user.color].headerColor};
 }
+
+.wrapper {
+  background-color: ${colors[user.color].wrapperBackground};
+  padding-top: 100px;
+}
+
+
+
+
+.photo-header {
+  position: relative;
+  margin: 0 auto;
+  margin-bottom: -50px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: ${colors[user.color].headerBackground};
+  color: ${colors[user.color].headerColor};
+  padding: 10px;
+  width: 95%;
+  border-radius: 6px;
+  }

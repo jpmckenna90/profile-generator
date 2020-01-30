@@ -1,9 +1,17 @@
-const fs = require("fs");
+const fs = require("fs"),
+  convertFactory = require("electron-html-to");
 const inquirer = require("inquirer");
 const axios = require("axios");
-const newHtml = require("./writehtml.js"); 
+const newHtml = require("./writehtml.js");
+var conversion = convertFactory({
+  converterPath: convertFactory.converters.PDF
+});
+
+// const pdf = require("html-pdf");
+// const options = {orientation: 'landscape'}
+
 const questions = [
-   {
+  {
     type: "input",
     message: "What is your Github username?",
     name: "username"
@@ -27,7 +35,8 @@ function User(
   following,
   followers,
   starred,
-  color
+  color,
+  blog
 ) {
   (this.name = name),
     (this.username = username),
@@ -37,15 +46,16 @@ function User(
     (this.repos = repos),
     (this.following = following),
     (this.followers = followers);
-    (this.starred = starred);
-    (this.color = color);
+  this.starred = starred;
+  this.color = color;
+  this.blog = blog;
 }
 
 inquirer.prompt(questions).then(function({ username, color }) {
   console.log(username, color);
   const queryUrl = `https://api.github.com/users/${username}`;
   const starredUrl = `https://api.github.com/users/${username}/starred`;
-  
+
   axios.get(queryUrl).then(res => {
     // Gather all data from axios response to pass into constructor
     const name = res.data.name;
@@ -56,11 +66,13 @@ inquirer.prompt(questions).then(function({ username, color }) {
     const repos = res.data.public_repos;
     const followers = res.data.followers;
     const following = res.data.following;
+    const blog = res.data.blog;
+    
 
     axios.get(starredUrl).then(res => {
       // Get # of starred repos from starredUrl axios call
-      const starred = res.data.length
-      
+      const starred = res.data.length;
+
       const user = new User(
         name,
         username,
@@ -71,16 +83,31 @@ inquirer.prompt(questions).then(function({ username, color }) {
         followers,
         following,
         starred,
-        color
+        color,
+        blog
       );
       console.log(user);
+      console.log(user.repos);
 
       // Create HTML file from user info
       const myFile = newHtml.writeHtml(user);
-      fs.writeFile(`${user.username}.html`, myFile, err => {
+      fs.writeFile("profile.html", myFile, err => {
         if (err) {
           console.log(err);
         }
+      });
+
+      conversion({ html: myFile }, function(err, result) {
+        if (err) {
+          return console.error(err);
+        }
+        console.log(result.numberOfPages);
+        console.log(result.logs);
+        result.stream.pipe(fs.createWriteStream("./profile.pdf"));
+        conversion.kill();
+        // pdf.create(myFile, options).toFile("profile.pdf", (err, res) => {
+        //   if (err) return console.log(err);
+        //   console.log(res);
       });
     });
   });
