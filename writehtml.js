@@ -60,7 +60,7 @@ const writeHtml = user => {
       }
       
       #top{
-        background-color: lightsteelblue;
+        background-color: ${colors[user.color].wrapperBackground};
         width: 100%;
         margin-bottom: 3%;
         padding: 2%;

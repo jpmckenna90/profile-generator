@@ -45,10 +45,10 @@ function User(
     (this.location = location),
     (this.repos = repos),
     (this.following = following),
-    (this.followers = followers);
-  this.starred = starred;
-  this.color = color;
-  this.blog = blog;
+    (this.followers = followers),
+    (this.starred = starred),
+    (this.color = color),
+    (this.blog = blog);
 }
 
 inquirer.prompt(questions).then(function({ username, color }) {
@@ -67,7 +67,6 @@ inquirer.prompt(questions).then(function({ username, color }) {
     const followers = res.data.followers;
     const following = res.data.following;
     const blog = res.data.blog;
-    
 
     axios.get(starredUrl).then(res => {
       // Get # of starred repos from starredUrl axios call
@@ -86,8 +85,6 @@ inquirer.prompt(questions).then(function({ username, color }) {
         color,
         blog
       );
-      console.log(user);
-      console.log(user.repos);
 
       // Create HTML file from user info
       const myFile = newHtml.writeHtml(user);
@@ -101,13 +98,8 @@ inquirer.prompt(questions).then(function({ username, color }) {
         if (err) {
           return console.error(err);
         }
-        console.log(result.numberOfPages);
-        console.log(result.logs);
         result.stream.pipe(fs.createWriteStream("./profile.pdf"));
         conversion.kill();
-        // pdf.create(myFile, options).toFile("profile.pdf", (err, res) => {
-        //   if (err) return console.log(err);
-        //   console.log(res);
       });
     });
   });
