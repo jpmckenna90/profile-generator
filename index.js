@@ -53,6 +53,7 @@ function User(
 
 inquirer.prompt(questions).then(function({ username, color }) {
   console.log(username, color);
+
   const queryUrl = `https://api.github.com/users/${username}`;
   const starredUrl = `https://api.github.com/users/${username}/starred`;
 
@@ -71,6 +72,7 @@ inquirer.prompt(questions).then(function({ username, color }) {
     axios.get(starredUrl).then(res => {
       // Get # of starred repos from starredUrl axios call
       const starred = res.data.length;
+      console.log(res);
 
       const user = new User(
         name,
